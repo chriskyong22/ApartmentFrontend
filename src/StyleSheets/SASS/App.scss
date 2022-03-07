@@ -1,0 +1,274 @@
+// Learn more about what's going on here:
+// @link https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/
+
+// Select a ratio to preview
+// Default is "perfectFourth"
+$type-ratios: (
+  "minorSecond": 1.067,
+  "majorSecond": 1.125,
+  "minorThird": 1.2,
+  "majorThird": 1.25,
+  "perfectFourth": 1.333,
+  "augmentedFourth": 1.414,
+  "perfectFifth": 1.5,
+  "goldenRatio": 1.618
+);
+
+@function type-ratio($key) {
+  @return map-get($type-ratios, $key);
+}
+
+// Recommended
+$type-base-size: 1rem;
+
+// Select by key of map, or use a custom value
+$type-size-ratio: type-ratio("perfectFourth");
+
+// List in descending order to prevent extra sort function
+// Limited to high-touch heading styles
+$type-levels: 4, 3, 2, 1;
+
+// Create map with h[x] as key
+// and computed font-size as value
+$type-styles: ();
+$level-size: $type-base-size;
+@each $level in $type-levels {
+  $level-size: $level-size * $type-size-ratio;
+  $type-styles: map-merge($type-styles, (#{"h"}$level: $level-size));
+
+  // Output heading styles
+  // Assign to element and create utility class
+  h#{$level},
+  .h#{$level} {
+    // Fallback for browsers that don't support min / max
+    font-size: $level-size;
+
+    // Recommendation courtesy of this brilliant work:
+    // @link https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/
+    line-height: calc(2px + 2ex + 2px);
+
+    // Set with `em` to be relative to current `font-size`
+    margin-bottom: 0.65em;
+
+    // Limit in place based on testing -> smaller ratios are
+    // prematurely or unnecessarily reduced
+    @if ($type-size-ratio > 1.2) {
+      // Fluid type styles
+
+      // Remove unit for calculations
+      
+      $level-unitless: calc($level-size / ($level-size * 0 + 1rem));
+
+      // Set minimum size to a percentage less than $level-size
+      // Reduction is greater for large font sizes (> 4rem) to help
+      // prevent overflow due to font-size on mobile devices
+      $fluid-reduction: if($level-size > 4, 0.5, 0.33);
+      $fluid-min: $level-unitless - ($fluid-reduction * $level-unitless);
+
+      // Prevent dropping lower than 1rem (body font-size)
+      $fluid-min: if($fluid-min > $type-base-size, $fluid-min, 1);
+
+      // Adjust max modifier slightly per level to prevent "same" size
+      // or lower levels appaering larger than higher levels
+      // 4vw was selected by testing from $type-ratios map, YMMV 🙃
+      $fluid-scaler: ($level-unitless - $fluid-min) + 4vw;
+
+      font-size: clamp(
+        #{$fluid-min}rem,
+        #{$fluid-scaler} + 1rem,
+        #{$level-size}
+      );
+    }
+  }
+}
+
+@function type-style($key) {
+  @return map-get($type-styles, $key);
+}
+
+// Test retrieving heading style value from the map
+// @debug "h3:" #{type-style(h3)};
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  // Help prevent overflow of long words/names/URLs
+  word-break: break-word;
+
+  // Optional, not supported for all languages:
+  hyphens: auto;
+
+  // Clear top margin
+  margin-top: 0;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  // Ensure base applied as default for all other elements
+  font-size: $type-base-size;
+  font-family: "Merriweather Sans", sans-serif;
+  line-height: 1.5;
+  
+  min-height: 100vh;
+  // Setup colors 
+  --white-color: white;
+  --black-background-color: #1f1f1f;
+  --white-background-color: white;
+  --blue-background-color: #306bea;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.white-color {
+  color: var(--white-color);
+}
+
+.black-background-color {
+  background-color: var(--black-background-color);
+}
+
+.header {
+  padding: 1.5em 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    svg {
+      width: 2rem;
+      height: 2rem;
+      fill: var(--white-color);
+      background-color: transparent;
+    }
+    .modal-container {
+      position: relative;
+      .modal {
+        position: absolute;
+        right: 0;
+        top: 1.5em;
+        padding: 1.5em 3em;
+        background-color: var(--black-background-color);
+        border: 1px solid rgb(65, 65, 65);
+        border-top: 1px solid transparent;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        color: var(--white-color);
+        .login, 
+        .signup {
+          font-weight: bold;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          input {
+            padding: 0.25rem;
+          }
+
+          .profile {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+      }
+      button {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #306bea;
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+
+.main-content {
+  flex-grow: 1;
+}
+
+.text {
+  max-width: 45ch;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+
+  .apartment-container {
+    background-color: var(--blue-background-color);
+    padding: 3em 6rem;
+    display: flex;
+    justify-content: space-evenly;
+
+    .apartment {
+      padding: 2em 3em;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--white-background-color);
+      border-radius: 1rem;
+      align-items: center;
+      .description {
+        align-self: flex-start;
+      }
+
+      button {
+        background-color: var(--black-background-color);
+        color: var(--white-color);
+        border-radius: 2px;
+        padding: 1em;
+        width: 100%;
+        font-size: $type-base-size;
+      }
+    }
+  }
+
+  .review-container {
+    padding: 1rem 6rem;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    
+    .review-links {
+      display: flex;
+      gap: 1rem;
+      a {
+        text-decoration: none;
+        color: currentColor;
+        svg {
+          max-width: 2em;
+          max-height: 2em;
+        }
+      }
+    }
+  }
+
+}
+
+.footer {
+  margin-top: auto;
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: var(--black-background-color);
+  color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+

@@ -1,0 +1,217 @@
+h4,
+.h4 {
+  font-size: 1.333rem;
+  line-height: calc(2px + 2ex + 2px);
+  margin-bottom: 0.65em;
+  font-size: clamp(
+        1rem,
+        4.333vw + 1rem,
+        1.333rem
+      );
+}
+
+h3,
+.h3 {
+  font-size: 1.776889rem;
+  line-height: calc(2px + 2ex + 2px);
+  margin-bottom: 0.65em;
+  font-size: clamp(
+        1.19051563rem,
+        4.58637337vw + 1rem,
+        1.776889rem
+      );
+}
+
+h2,
+.h2 {
+  font-size: 2.368593037rem;
+  line-height: calc(2px + 2ex + 2px);
+  margin-bottom: 0.65em;
+  font-size: clamp(
+        1.5869573348rem,
+        4.7816357022vw + 1rem,
+        2.368593037rem
+      );
+}
+
+h1,
+.h1 {
+  font-size: 3.1573345183rem;
+  line-height: calc(2px + 2ex + 2px);
+  margin-bottom: 0.65em;
+  font-size: clamp(
+        2.1154141273rem,
+        5.041920391vw + 1rem,
+        3.1573345183rem
+      );
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  word-break: break-word;
+  hyphens: auto;
+  margin-top: 0;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1rem;
+  font-family: "Merriweather Sans", sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  --white-color: white;
+  --black-background-color: #1f1f1f;
+  --white-background-color: white;
+  --blue-background-color: #306bea;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.white-color {
+  color: var(--white-color);
+}
+
+.black-background-color {
+  background-color: var(--black-background-color);
+}
+
+.header {
+  padding: 1.5em 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .loginForm {
+  display: flex;
+  flex-direction: column;
+}
+.header .loginForm svg {
+  width: 2rem;
+  height: 2rem;
+  fill: var(--white-color);
+  background-color: transparent;
+}
+.header .loginForm .modal-container {
+  position: relative;
+}
+.header .loginForm .modal-container .modal {
+  position: absolute;
+  right: 0;
+  top: 1.5em;
+  padding: 1.5em 3em;
+  background-color: var(--black-background-color);
+  border: 1px solid #414141;
+  border-top: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--white-color);
+}
+.header .loginForm .modal-container .modal .login,
+.header .loginForm .modal-container .modal .signup {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.header .loginForm .modal-container .modal .login input,
+.header .loginForm .modal-container .modal .signup input {
+  padding: 0.25rem;
+}
+.header .loginForm .modal-container .modal .login .profile,
+.header .loginForm .modal-container .modal .signup .profile {
+  display: flex;
+  flex-direction: column;
+}
+.header .loginForm .modal-container button {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #306bea;
+  width: 100%;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+.text {
+  max-width: 45ch;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+}
+.home .apartment-container {
+  background-color: var(--blue-background-color);
+  padding: 3em 6rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.home .apartment-container .apartment {
+  padding: 2em 3em;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-background-color);
+  border-radius: 1rem;
+  align-items: center;
+}
+.home .apartment-container .apartment .description {
+  align-self: flex-start;
+}
+.home .apartment-container .apartment button {
+  background-color: var(--black-background-color);
+  color: var(--white-color);
+  border-radius: 2px;
+  padding: 1em;
+  width: 100%;
+  font-size: 1rem;
+}
+.home .review-container {
+  padding: 1rem 6rem;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+.home .review-container .review-links {
+  display: flex;
+  gap: 1rem;
+}
+.home .review-container .review-links a {
+  text-decoration: none;
+  color: currentColor;
+}
+.home .review-container .review-links a svg {
+  max-width: 2em;
+  max-height: 2em;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: var(--black-background-color);
+  color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+}
+.footer .contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/*# sourceMappingURL=App.css.map */
