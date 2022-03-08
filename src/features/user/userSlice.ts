@@ -8,7 +8,8 @@ export interface UserState {
         firstName: string,
         lastName: string
     };
-    status: 'loggedIn' | 'loggedOut' | 'verifying' | 'failed';
+    loginStatus: 'loggedIn' | 'loggedOut';
+    status: 'idle'| 'verifying' | 'failed';
     errorMessage: ErrorMessage["errorMessage"];
 }
 
@@ -33,7 +34,8 @@ const initialState: UserState = {
         firstName: "",
         lastName: "",
     },
-    status: 'loggedOut',
+    loginStatus: 'loggedOut',
+    status: 'idle',
     errorMessage: "",
 };
 
@@ -91,7 +93,8 @@ export const userSlice = createSlice({
             })
             .addCase(loginAsync.fulfilled, (state, {payload}) => {
                 state.info = payload;
-                state.status = 'loggedIn';
+                state.loginStatus = 'loggedIn';
+                state.status = 'idle';
             })
             .addCase(loginAsync.rejected, (state, action) => {
                 state.status = 'failed';
@@ -106,8 +109,9 @@ export const userSlice = createSlice({
                 state.status = 'verifying';
             })
             .addCase(logoutAsync.fulfilled, (state) => {
-                state.status = 'loggedOut';
                 state.info = {...initialState.info};
+                state.loginStatus = 'loggedOut';
+                state.status = 'idle';
             })
             .addCase(logoutAsync.rejected, (state, action) => {
                 state.status = 'failed';
@@ -120,6 +124,7 @@ export const userSlice = createSlice({
     }
 })
 
+export const selectLoginStatus = (state: RootState) => state.user.loginStatus;
 export const selectStatus = (state: RootState) => state.user.status;
 export const selectErrorMessage = (state: RootState) => state.user.errorMessage;
 export const selectUserInfo = (state: RootState) => state.user.info;

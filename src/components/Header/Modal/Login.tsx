@@ -51,7 +51,7 @@ export const Login = () => {
             >
                 Login
             </button>
-            {status}
+            {status === 'idle' ? "" : status}
         </form>
     )
 }

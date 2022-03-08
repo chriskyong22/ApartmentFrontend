@@ -2,7 +2,7 @@ import react, { useState } from "react";
 import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectStatus, selectUserInfo } from "../../../features/user/userSlice";
+import { selectLoginStatus, selectUserInfo } from "../../../features/user/userSlice";
 import { Profile } from "../../Profile/Profile"
 interface ModalProps {
     closeModal: () => void;
@@ -11,7 +11,7 @@ interface ModalProps {
 
 export const Modal = () => {
     const dispatch = useAppDispatch();
-    const status = useAppSelector(selectStatus);
+    const status = useAppSelector(selectLoginStatus);
     const userInfo = useAppSelector(selectUserInfo);
 
     const [showSignUp, setShowSignUp] = useState(false);
@@ -22,7 +22,7 @@ export const Modal = () => {
 
 
     const renderModal = () => {
-        if (status !== 'loggedIn') {
+        if (status === 'loggedOut') {
             return (
                 <>
                     {
