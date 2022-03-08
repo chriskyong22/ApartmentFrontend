@@ -61,6 +61,11 @@ h4 {
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
 body {
   font-size: 1rem;
   font-family: "Merriweather Sans", sans-serif;
@@ -102,16 +107,26 @@ body {
   fill: var(--white-color);
   background-color: transparent;
 }
+.header .loginForm .modal-overlay {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+}
 .header .loginForm .modal-container {
   position: relative;
 }
 .header .loginForm .modal-container .modal {
+  z-index: 1;
   position: absolute;
   right: 0;
   top: 1.5em;
-  padding: 1.5em 3em;
+  padding: 1.5em 2.75em;
   background-color: var(--black-background-color);
-  border: 1px solid #414141;
+  border: 1px solid #555555;
   border-top: 1px solid transparent;
   display: flex;
   flex-direction: column;
@@ -129,10 +144,13 @@ body {
 .header .loginForm .modal-container .modal .signup input {
   padding: 0.25rem;
 }
-.header .loginForm .modal-container .modal .login .profile,
-.header .loginForm .modal-container .modal .signup .profile {
+.header .loginForm .modal-container .modal .profile {
   display: flex;
   flex-direction: column;
+}
+.header .loginForm .modal-container .modal .profile header {
+  width: 100%;
+  background-color: red;
 }
 .header .loginForm .modal-container button {
   font-size: 1rem;
@@ -189,10 +207,6 @@ body {
 .home .review-container .review-links {
   display: flex;
   gap: 1rem;
-}
-.home .review-container .review-links a {
-  text-decoration: none;
-  color: currentColor;
 }
 .home .review-container .review-links a svg {
   max-width: 2em;

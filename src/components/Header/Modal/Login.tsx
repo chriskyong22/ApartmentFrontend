@@ -16,7 +16,7 @@ export const Login = () => {
         dispatch((loginAsync({
             username,
             password 
-        })))
+        } as LoginState)))
     }
 
     return (

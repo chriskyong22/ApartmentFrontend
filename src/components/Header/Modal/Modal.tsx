@@ -4,6 +4,10 @@ import { Login } from "./Login";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectStatus, selectUserInfo } from "../../../features/user/userSlice";
 import { Profile } from "../../Profile/Profile"
+interface ModalProps {
+    closeModal: () => void;
+}
+
 
 export const Modal = () => {
     const dispatch = useAppDispatch();

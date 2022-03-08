@@ -109,6 +109,11 @@ h4 {
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
 body {
   // Ensure base applied as default for all other elements
   font-size: $type-base-size;
@@ -151,15 +156,28 @@ body {
       fill: var(--white-color);
       background-color: transparent;
     }
+
+    .modal-overlay {
+      position: fixed;
+      top:0px;
+      right:0px;
+      bottom:0px;
+      left:0px;
+      width: 100vw;
+      height: 100vh;
+    }
+
     .modal-container {
       position: relative;
+
       .modal {
+        z-index: 1;
         position: absolute;
         right: 0;
         top: 1.5em;
-        padding: 1.5em 3em;
+        padding: 1.5em 2.75em;
         background-color: var(--black-background-color);
-        border: 1px solid rgb(65, 65, 65);
+        border: 1px solid rgb(85, 85, 85);
         border-top: 1px solid transparent;
         display: flex;
         flex-direction: column;
@@ -174,10 +192,14 @@ body {
           input {
             padding: 0.25rem;
           }
+        }
+        .profile {
+          display: flex;
+          flex-direction: column;
+          header {
+            width: 100%;
+            background-color: red;
 
-          .profile {
-            display: flex;
-            flex-direction: column;
           }
         }
       }
@@ -245,8 +267,6 @@ body {
       display: flex;
       gap: 1rem;
       a {
-        text-decoration: none;
-        color: currentColor;
         svg {
           max-width: 2em;
           max-height: 2em;
