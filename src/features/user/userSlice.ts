@@ -75,8 +75,8 @@ export const logoutAsync = createAsyncThunk<
         try {
             await logout(); 
             return true;
-        } catch (error){
-            return thunkAPI.rejectWithValue({errorMessage: error} as ErrorMessage);
+        } catch (errorMessage){
+            return thunkAPI.rejectWithValue({errorMessage} as ErrorMessage);
         }
     }
 )

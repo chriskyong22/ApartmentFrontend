@@ -1,11 +1,15 @@
 import react from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectUserInfo } from "../../features/user/userSlice";
+import { selectUserInfo, selectStatus, selectErrorMessage } from "../../features/user/userSlice";
 import { logoutAsync } from "../../features/user/userSlice";
 
 export const Profile = () => {
     const user = useAppSelector(selectUserInfo);
     const dispatch = useAppDispatch();
+    const status = useAppSelector(selectStatus);
+    const errorMessage = useAppSelector(selectErrorMessage);
+
+
 
     return (
         <section className="profile">
@@ -29,6 +33,8 @@ export const Profile = () => {
             <button onClick={() => dispatch(logoutAsync())}>
                 Log out
             </button>
+            {status}
+            {errorMessage}
         </section>
     )
 }

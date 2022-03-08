@@ -18,7 +18,9 @@ export const logout = async () => {
     return new Promise<void>(
         (resolve, error) => {
             setTimeout(() => {
-                resolve();
+                Math.floor(Math.random() * 2) === 1 
+                    ? resolve() 
+                    : error("Failed to log out, please try again");
             }, 1000);
         }
     )
