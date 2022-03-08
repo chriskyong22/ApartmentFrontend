@@ -1,16 +1,21 @@
 import react from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectUserInfo } from "../../features/user/userSlice";
+import { logoutAsync } from "../../features/user/userSlice";
 
 export const Profile = () => {
     const user = useAppSelector(selectUserInfo);
+    const dispatch = useAppDispatch();
 
     return (
         <section className="profile">
-            <header>
-                <h2 className="h4">
-                    {`Welcome ${user.firstName}`}
-                </h2>
+            <header aria-label={"Welcome Message"}>
+                <p className="h4">
+                    Welcome
+                </p>
+                <p className="h4">
+                    {`${user.firstName}!`}
+                </p>
             </header>
             <a href="/myApartment">
                 See my apartment(s)
@@ -18,10 +23,10 @@ export const Profile = () => {
             <a href="/problems">
                 Have a problem?
             </a>
-            <button>
+            <a href="/userSettings">
                 Settings
-            </button>
-            <button>
+            </a>
+            <button onClick={() => dispatch(logoutAsync())}>
                 Log out
             </button>
         </section>

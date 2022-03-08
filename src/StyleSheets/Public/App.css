@@ -149,8 +149,8 @@ body {
   flex-direction: column;
 }
 .header .loginForm .modal-container .modal .profile header {
-  width: 100%;
-  background-color: red;
+  margin: 0px;
+  padding: 0px;
 }
 .header .loginForm .modal-container button {
   font-size: 1rem;

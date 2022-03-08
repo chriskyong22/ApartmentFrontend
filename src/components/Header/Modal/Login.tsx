@@ -1,6 +1,6 @@
 import react, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectStatus, selectStatusMessage} from "../../../features/user/userSlice"
+import { selectStatus, selectErrorMessage} from "../../../features/user/userSlice"
 import { loginAsync } from "../../../features/user/userSlice";
 import { LoginState } from "../../../features/user/userSlice";
 

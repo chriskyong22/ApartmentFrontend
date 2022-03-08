@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { authenticate } from './userAPI';
+import { authenticate, logout } from './userAPI';
 
 export interface UserState {
     info: {
@@ -9,7 +9,7 @@ export interface UserState {
         lastName: string
     };
     status: 'loggedIn' | 'loggedOut' | 'verifying' | 'failed';
-    statusMessage: string;
+    errorMessage: ErrorMessage["errorMessage"];
 }
 
 interface ErrorMessage {
@@ -34,7 +34,7 @@ const initialState: UserState = {
         lastName: "",
     },
     status: 'loggedOut',
-    statusMessage: "",
+    errorMessage: "",
 };
 
 export const loginAsync = createAsyncThunk<
@@ -61,10 +61,21 @@ export const loginAsync = createAsyncThunk<
     }
 );
 
-export const logoutAsync = createAsyncThunk(
+export const logoutAsync = createAsyncThunk<
+    boolean, 
+    void,
+    {
+        rejectValue: ErrorMessage;
+    }
+>(
     'user/logoutAsync',
-    async ({username}: LoginState, thunkAPI) => {
-        return Promise.resolve();
+    async (_undefined, thunkAPI) => {
+        try {
+            await logout(); 
+            return true;
+        } catch (error){
+            return thunkAPI.rejectWithValue({errorMessage: error} as ErrorMessage);
+        }
     }
 )
 
@@ -72,9 +83,6 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {    
-        logout: (state) => {
-            state.status = 'loggedOut';
-        },
     },
     extraReducers: (builder) => {
         builder
@@ -88,15 +96,31 @@ export const userSlice = createSlice({
             .addCase(loginAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 if (action.payload) {
-                    state.statusMessage = action.payload.errorMessage;
+                    state.errorMessage = action.payload.errorMessage;
                 } else {
-                    state.statusMessage = "Unknown error has occurred!";
+                    state.errorMessage = "Unknown error has occurred!";
+                }
+            })
+            
+            .addCase(logoutAsync.pending, (state) => {
+                state.status = 'verifying';
+            })
+            .addCase(logoutAsync.fulfilled, (state) => {
+                state.status = 'loggedOut';
+                state.info = {...initialState.info};
+            })
+            .addCase(logoutAsync.rejected, (state, action) => {
+                state.status = 'failed';
+                if (action.payload) {
+                    state.errorMessage = action.payload.errorMessage;
+                } else {
+                    state.errorMessage = "Unknown error has occurred";
                 }
             })
     }
 })
 
 export const selectStatus = (state: RootState) => state.user.status;
-export const selectStatusMessage = (state: RootState) => state.user.statusMessage;
+export const selectErrorMessage = (state: RootState) => state.user.errorMessage;
 export const selectUserInfo = (state: RootState) => state.user.info;
 export default userSlice.reducer;
