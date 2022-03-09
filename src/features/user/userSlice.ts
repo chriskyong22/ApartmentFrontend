@@ -22,7 +22,7 @@ export interface LoginState {
     password: string
 }
 
-export interface userInfo { 
+export interface UserInfo { 
     username: string,
     firstName: string,
     lastName: string
@@ -40,7 +40,7 @@ const initialState: UserState = {
 };
 
 export const loginAsync = createAsyncThunk<
-    userInfo,
+    UserInfo,
     LoginState,
     {
         rejectValue: ErrorMessage
@@ -56,12 +56,13 @@ export const loginAsync = createAsyncThunk<
         // If invalid, dispatch to failure
         try { 
             const response = await authenticate(loginState);
-            return response as userInfo;
+            return response as UserInfo;
         } catch (error) {
             return thunkAPI.rejectWithValue({errorMessage: error} as ErrorMessage);
         }
     }
 );
+
 
 export const logoutAsync = createAsyncThunk<
     boolean, 
@@ -84,7 +85,10 @@ export const logoutAsync = createAsyncThunk<
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {    
+    reducers: {
+        setIdle: (state) => {
+            state.status = 'idle';
+        }    
     },
     extraReducers: (builder) => {
         builder
@@ -95,6 +99,7 @@ export const userSlice = createSlice({
                 state.info = payload;
                 state.loginStatus = 'loggedIn';
                 state.status = 'idle';
+                state.errorMessage = '';
             })
             .addCase(loginAsync.rejected, (state, action) => {
                 state.status = 'failed';
@@ -112,6 +117,7 @@ export const userSlice = createSlice({
                 state.info = {...initialState.info};
                 state.loginStatus = 'loggedOut';
                 state.status = 'idle';
+                state.errorMessage = '';
             })
             .addCase(logoutAsync.rejected, (state, action) => {
                 state.status = 'failed';
@@ -121,6 +127,7 @@ export const userSlice = createSlice({
                     state.errorMessage = "Unknown error has occurred";
                 }
             })
+
     }
 })
 
@@ -128,4 +135,7 @@ export const selectLoginStatus = (state: RootState) => state.user.loginStatus;
 export const selectStatus = (state: RootState) => state.user.status;
 export const selectErrorMessage = (state: RootState) => state.user.errorMessage;
 export const selectUserInfo = (state: RootState) => state.user.info;
+
+export const { setIdle } = userSlice.actions;
+
 export default userSlice.reducer;

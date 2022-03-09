@@ -1,3 +1,4 @@
+@charset "UTF-8";
 h4,
 .h4 {
   font-size: 1.333rem;
@@ -75,8 +76,19 @@ body {
   --black-background-color: #1f1f1f;
   --white-background-color: white;
   --blue-background-color: #306bea;
+  --darker-white-color: rgb(236, 235, 235);
+  --padding-sides: 6rem;
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+    --padding-sides: 1rem;
+  }
+
+  .form-section-container {
+    flex-wrap: wrap;
+  }
+}
 .layout {
   min-height: 100vh;
   display: flex;
@@ -92,7 +104,7 @@ body {
 }
 
 .header {
-  padding: 1.5em 6rem;
+  padding: 1.5em var(--padding-sides);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,6 +156,25 @@ body {
 .header .loginForm .modal-container .modal .signup input {
   padding: 0.25rem;
 }
+.header .loginForm .modal-container .modal .signup fieldset {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dotted white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.header .loginForm .modal-container .modal .signup fieldset .form-section-container {
+  display: flex;
+  gap: 1rem;
+}
+.header .loginForm .modal-container .modal .signup fieldset .form-section-container .form-section-item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 .header .loginForm .modal-container .modal .profile {
   display: flex;
   flex-direction: column;
@@ -174,8 +205,10 @@ body {
 }
 .home .apartment-container {
   background-color: var(--blue-background-color);
-  padding: 3em 6rem;
+  padding: 3em var(--padding-sides);
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-evenly;
 }
 .home .apartment-container .apartment {
@@ -198,7 +231,7 @@ body {
   font-size: 1rem;
 }
 .home .review-container {
-  padding: 1rem 6rem;
+  padding: 3rem var(--padding-sides);
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -209,8 +242,70 @@ body {
   gap: 1rem;
 }
 .home .review-container .review-links a svg {
-  max-width: 2em;
-  max-height: 2em;
+  width: 3em;
+  height: 3em;
+}
+.home .contact-container {
+  padding: 3rem var(--padding-sides);
+  display: flex;
+  background-color: var(--blue-background-color);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.home .contact-container .contact-header {
+  color: var(--white-color);
+}
+.home .contact-container .contact-info {
+  display: flex;
+  gap: 1rem;
+  padding: 1em;
+  justify-content: space-evenly;
+  color: var(--darker-white-color);
+}
+.home .contact-container .message-container {
+  background-color: var(--white-color);
+  padding: 2em;
+  min-width: 18rem;
+  border-radius: 8px;
+}
+.home .contact-container .message-container .message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.home .contact-container .message-container .message-form legend {
+  font-weight: bold;
+  padding: 0px;
+  margin-bottom: 0.25rem;
+}
+.home .contact-container .message-container .message-form fieldset {
+  border: inherit;
+  padding: 0px;
+  margin: 0px;
+}
+.home .contact-container .message-container .message-form .message-recipient {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.home .contact-container .message-container .message-form textarea {
+  width: 100%;
+}
+
+.required::after {
+  content: "*";
+  color: red;
+}
+
+.email:before {
+  content: "📧";
+  font-size: 0.9em;
+}
+
+.phone:before {
+  content: "📱";
+  font-size: 0.9em;
 }
 
 .footer {

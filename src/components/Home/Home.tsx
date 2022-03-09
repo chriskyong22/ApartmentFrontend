@@ -1,12 +1,13 @@
 import react from "react"
+import { MessageForm } from "../MessageForm/MessageForm"
 
 export const Home = () => {
     return (
         <section aria-label="home-page" className="home">
             <article aria-label="apartments-section" className="apartment-container">
 
-                <div className="apartment">
-                    <header aria-label="Avaliable Apartments">
+                <section className="apartment">
+                    <header className="apartment-header" aria-label="Avaliable Apartments">
                         <h2>
                             Avaliable Apartments
                         </h2>
@@ -17,9 +18,9 @@ export const Home = () => {
                     <button aria-label="Check apartments">
                         Check Apartments
                     </button>
-                </div>
+                </section>
 
-                <div className="apartment">
+                <section className="apartment">
                     <header aria-label="Own an apartment?">
                         <h2>
                             Own an Apartment?
@@ -32,15 +33,18 @@ export const Home = () => {
                     <button aria-label="Check info">
                         Check Info
                     </button>
-                </div>
+                </section>
 
             </article>
 
-            <article aria-label="reviews-section" className="review-container">
-                <header className="header">
-                    <h2 className="text">
-                        Are you interested but want to know more? Check out some reviews!
+            <article aria-label="review-section" className="review-container">
+                <header className="review-header">
+                    <h2 className="text h2">
+                        Are you interested but want to know more?
                     </h2>
+                    <h3>
+                        Check out some reviews!
+                    </h3>
                 </header>
                 <div className="review-links h3">
                     <a href="">
@@ -51,6 +55,17 @@ export const Home = () => {
                         <svg fill="#006AFF" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Zillow</title><path d="M12.006 0L1.086 8.627v3.868c3.386-2.013 11.219-5.13 14.763-6.015.11-.024.16.005.227.078.372.427 1.586 1.899 1.916 2.301a.128.128 0 0 1-.03.195 43.607 43.607 0 0 0-6.67 6.527c-.03.037-.006.043.012.03 2.642-1.134 8.828-2.94 11.622-3.452V8.627zm-.48 11.177c-2.136.708-8.195 3.307-10.452 4.576V24h21.852v-7.936c-2.99.506-11.902 3.16-15.959 5.246a.183.183 0 0 1-.23-.036l-2.044-2.429c-.055-.061-.062-.098.011-.208 1.574-2.3 4.789-5.899 6.833-7.418.042-.03.031-.06-.012-.042Z"/></svg>
                     </a>        
                 </div>
+            </article>
+
+            <article aria-label="contact-section" className="contact-container">
+                <header className="contact-header">
+                    <h2 className="text">
+                        Leave a message!
+                    </h2>
+                </header>
+                <section className="message-container">
+                    <MessageForm/>
+                </section>
             </article>
         </section>
     )

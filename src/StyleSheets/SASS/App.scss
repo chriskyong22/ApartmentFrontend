@@ -126,6 +126,17 @@ body {
   --black-background-color: #1f1f1f;
   --white-background-color: white;
   --blue-background-color: #306bea;
+  --darker-white-color: rgb(236, 235, 235);
+  --padding-sides: 6rem;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    --padding-sides: 1rem;
+  }
+  .form-section-container {
+    flex-wrap: wrap;
+  }
 }
 
 .layout {
@@ -143,7 +154,7 @@ body {
 }
 
 .header {
-  padding: 1.5em 6rem;
+  padding: 1.5em var(--padding-sides);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -193,6 +204,31 @@ body {
             padding: 0.25rem;
           }
         }
+
+        .signup {
+          fieldset {
+            border: none;
+            margin: 0px;
+            padding: 0px;
+            
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dotted white;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            .form-section-container {
+              display: flex;
+              gap: 1rem;
+              .form-section-item {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+              }
+            }
+          }
+        }
+
         .profile {
           display: flex;
           flex-direction: column;
@@ -229,8 +265,10 @@ body {
 
   .apartment-container {
     background-color: var(--blue-background-color);
-    padding: 3em 6rem;
+    padding: 3em var(--padding-sides);
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: space-evenly;
 
     .apartment {
@@ -256,7 +294,7 @@ body {
   }
 
   .review-container {
-    padding: 1rem 6rem;
+    padding: 3rem var(--padding-sides);
     display: flex;
     text-align: center;
     flex-direction: column;
@@ -267,13 +305,79 @@ body {
       gap: 1rem;
       a {
         svg {
-          max-width: 2em;
-          max-height: 2em;
+          width: 3em;
+          height: 3em;
         }
       }
     }
   }
 
+  .contact-container {
+    padding: 3rem var(--padding-sides);
+    display: flex;
+    background-color: var(--blue-background-color);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .contact-header {
+      color: var(--white-color);
+    }
+    .contact-info {
+      display: flex;
+      gap: 1rem;
+      padding: 1em;
+      justify-content: space-evenly;
+      color: var(--darker-white-color);
+    }
+    .message-container {
+      background-color: var(--white-color);
+      padding: 2em;
+      min-width: 18rem;
+      border-radius: 8px;
+      .message-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        legend {
+          font-weight: bold;
+          padding: 0px;
+          margin-bottom: 0.25rem;
+        }
+        fieldset {
+          border: inherit;
+          padding: 0px;
+          margin: 0px;
+        }
+  
+        .message-recipient {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        textarea {
+          width: 100%;
+        }
+      }
+    }
+    
+  }
+}
+
+.required::after {
+  content: '*';
+  color: red;
+}
+
+.email:before {
+  content: '📧';
+  font-size: 0.9em;
+}
+
+.phone:before { 
+  content: '📱';
+  font-size: 0.9em;
 }
 
 .footer {
