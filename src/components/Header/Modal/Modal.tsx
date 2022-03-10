@@ -32,7 +32,7 @@ export const Modal = () => {
                         !showSignUp && <Login/>
                     }
                     <button onClick={toggleForm}>
-                        {showSignUp ? "Login" : "Sign Up"}
+                        Go to {showSignUp ? "Login" : "Sign up"}
                     </button>
                 </>
             )

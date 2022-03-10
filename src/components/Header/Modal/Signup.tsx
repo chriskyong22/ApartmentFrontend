@@ -41,8 +41,10 @@ export const Signup = () => {
         )
     }
 
-    const submitForm = async (event: react.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const submitForm = async (event: react.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(event.currentTarget);
+
         const newErrors = validateForm(signUpState);
         if (newErrors.length === 0) {
             try {
@@ -76,7 +78,7 @@ export const Signup = () => {
             <h2 aria-label="Sign up" className="h3">
                 Sign up
             </h2>
-            <form className="signup">
+            <form onSubmit={submitForm} className="signup">
                 <fieldset>
                     <legend className="h4">
                         Personal Information
@@ -168,7 +170,6 @@ export const Signup = () => {
                 </fieldset>
                 <button
                     aria-label="Sign up button"
-                    onClick={submitForm}
                 >
                     Sign up
                 </button>
